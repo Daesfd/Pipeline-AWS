@@ -72,7 +72,7 @@ x-airflow-common:
     - ./plugins:/opt/airflow/plugins
     - ./steps:/opt/airflow/steps
     - /home/edson/.aws:/opt/airflow/.aws:ro
-    - /home/edson/PycharmProjects/Facebook-AWS/airflow/requirements.txt:/requirements.txt
+    - /home/edson/PycharmProjects/Pipeline-AWS/airflow/requirements.txt:/requirements.txt
 
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
