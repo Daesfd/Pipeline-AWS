@@ -39,5 +39,10 @@ output "aws_region" {
 
 output "s3_bucket_name" {
     description = "Region set for AWS"
-    value = aws_s3_bucket.facebook_data.bucket
+    value = aws_s3_bucket.houses_data.bucket
+}
+
+output "redshift_role" {
+    description = "Role assigned to Redshift"
+    value = aws_iam_role.redshift_role.name
 }

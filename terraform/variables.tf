@@ -1,5 +1,5 @@
 locals {
-  data_lake_bucket = "facebook-data-lake"
+  data_lake_bucket = "houses-data-bucket"
 }
 
 variable "profile" {

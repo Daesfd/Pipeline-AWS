@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.2.2"
+  required_version = "1.2.3"
 
   required_providers {
     aws = {
@@ -43,7 +43,7 @@ resource "aws_security_group" "sg_redshift" {
   }
 }
 
-resource "aws_s3_bucket" "facebook_data" {
+resource "aws_s3_bucket" "houses_data" {
   bucket = "${local.data_lake_bucket}-${var.project}"
 
   force_destroy = true
@@ -55,7 +55,25 @@ resource "aws_s3_bucket" "facebook_data" {
   }
 }
 
-resource "aws_s3_bucket_acl" "facebook_data" {
-  bucket = aws_s3_bucket.facebook_data.id
+resource "aws_s3_bucket_acl" "houses_data" {
+  bucket = aws_s3_bucket.houses_data.id
   acl = var.acl
+}
+
+resource "aws_iam_role" "redshift_role" {
+  name = "RedShiftLoadRole"
+  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"]
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "redshift.amazonaws.com"
+        }
+      },
+    ]
+  })
 }
